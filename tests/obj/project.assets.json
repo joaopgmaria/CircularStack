@@ -1612,7 +1612,7 @@
           "lib/netstandard1.3/System.Xml.XPath.XmlDocument.dll": {}
         }
       },
-      "CircularStack/1.0.0-alpha": {
+      "CircularStack/1.0.0": {
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
         "compile": {
@@ -1674,7 +1674,7 @@
           "lib/net45/Microsoft.VisualStudio.TestPlatform.TestFramework.dll": {}
         }
       },
-      "CircularStack/1.0.0-alpha": {
+      "CircularStack/1.0.0": {
         "type": "project",
         "framework": ".NETFramework,Version=v4.6",
         "compile": {
@@ -5756,7 +5756,7 @@
         "system.xml.xpath.xmldocument.nuspec"
       ]
     },
-    "CircularStack/1.0.0-alpha": {
+    "CircularStack/1.0.0": {
       "type": "project",
       "path": "../src/CircularStack.csproj",
       "msbuildProject": "../src/CircularStack.csproj"
@@ -5764,14 +5764,14 @@
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v2.0": [
-      "CircularStack >= 1.0.0-alpha",
+      "CircularStack >= 1.0.0",
       "MSTest.TestAdapter >= 1.2.0",
       "MSTest.TestFramework >= 1.2.0",
       "Microsoft.NET.Test.Sdk >= 15.5.0",
       "Microsoft.NETCore.App >= 2.0.0"
     ],
     ".NETFramework,Version=v4.6": [
-      "CircularStack >= 1.0.0-alpha",
+      "CircularStack >= 1.0.0",
       "MSTest.TestAdapter >= 1.2.0",
       "MSTest.TestFramework >= 1.2.0",
       "Microsoft.NET.Test.Sdk >= 15.5.0"

@@ -1,0 +1,14 @@
+mode: ContinuousDelivery
+build-metadata-padding: 5
+tag-prefix: '[Rr]eleases?[/-]'
+assembly-informational-format: '{AssemblySemVer}'
+branches:
+    master:
+        increment: None
+        tag: unstable
+    releases?[/-]:
+        mode: ContinuousDelivery
+        increment: None
+        tag: rc
+ignore:
+  sha: []

@@ -1,3 +1,0 @@
-D:\privateRepos\CircularStack\src\obj\Debug\netcoreapp1.1\CircularStack.csproj.CoreCompileInputs.cache
-D:\privateRepos\CircularStack\src\obj\Debug\netcoreapp1.1\CircularStack.AssemblyInfoInputs.cache
-D:\privateRepos\CircularStack\src\obj\Debug\netcoreapp1.1\CircularStack.AssemblyInfo.cs

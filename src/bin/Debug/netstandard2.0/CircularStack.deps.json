@@ -7,7 +7,7 @@
   "targets": {
     ".NETStandard,Version=v2.0": {},
     ".NETStandard,Version=v2.0/": {
-      "CircularStack/1.0.0-alpha": {
+      "CircularStack/1.0-alpha": {
         "dependencies": {
           "NETStandard.Library": "2.0.0"
         },
@@ -24,7 +24,7 @@
     }
   },
   "libraries": {
-    "CircularStack/1.0.0-alpha": {
+    "CircularStack/1.0-alpha": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
