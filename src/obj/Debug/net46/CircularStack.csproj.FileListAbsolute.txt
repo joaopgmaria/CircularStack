@@ -1,0 +1,7 @@
+D:\privateRepos\CircularStack\src\bin\Debug\net46\CircularStack.dll
+D:\privateRepos\CircularStack\src\bin\Debug\net46\CircularStack.pdb
+D:\privateRepos\CircularStack\src\obj\Debug\net46\CircularStack.csproj.CoreCompileInputs.cache
+D:\privateRepos\CircularStack\src\obj\Debug\net46\CircularStack.AssemblyInfoInputs.cache
+D:\privateRepos\CircularStack\src\obj\Debug\net46\CircularStack.AssemblyInfo.cs
+D:\privateRepos\CircularStack\src\obj\Debug\net46\CircularStack.dll
+D:\privateRepos\CircularStack\src\obj\Debug\net46\CircularStack.pdb
