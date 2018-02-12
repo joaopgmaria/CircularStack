@@ -1,8 +1,0 @@
-D:\privateRepos\CircularStack\src\bin\Debug\netstandard2.0\CircularStack.deps.json
-D:\privateRepos\CircularStack\src\bin\Debug\netstandard2.0\CircularStack.dll
-D:\privateRepos\CircularStack\src\bin\Debug\netstandard2.0\CircularStack.pdb
-D:\privateRepos\CircularStack\src\obj\Debug\netstandard2.0\CircularStack.csproj.CoreCompileInputs.cache
-D:\privateRepos\CircularStack\src\obj\Debug\netstandard2.0\CircularStack.AssemblyInfoInputs.cache
-D:\privateRepos\CircularStack\src\obj\Debug\netstandard2.0\CircularStack.AssemblyInfo.cs
-D:\privateRepos\CircularStack\src\obj\Debug\netstandard2.0\CircularStack.dll
-D:\privateRepos\CircularStack\src\obj\Debug\netstandard2.0\CircularStack.pdb
