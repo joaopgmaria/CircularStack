@@ -129,7 +129,7 @@ Task("Run-Tests")
 	});
 
 Task("Pack-NuGet-Packages")
-    //.IsDependentOn("Run-Tests")
+    .IsDependentOn("Run-Tests")
 	.IsDependentOn("Get-GitVersion")
 	.Does(() =>
 	{
