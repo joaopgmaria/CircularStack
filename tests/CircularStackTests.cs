@@ -1,20 +1,20 @@
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 
 namespace CircularStack
 {
-    [TestClass]
+    [TestFixture]
     public class CircularStackTests
     {
-        [TestMethod]
+        [Test]
         public void CircularStack_Should_BeInitializedWithDefaultCapacity()
         {
             var obj = new CircularStack();
             Assert.AreEqual(CircularStack.DefaultCapacity, obj.Capacity);
         }
 
-        [TestMethod]
+        [Test]
         public void CircularStack_Should_BeInitializedWithProvidedCapacity()
         {
             int capacity = 100;
@@ -23,7 +23,7 @@ namespace CircularStack
             Assert.AreEqual(capacity, obj.Capacity);
         }
 
-        [TestMethod]
+        [Test]
         public void CircularStack_Should_BeInitializedWithCollection()
         {
             var items = new List<string> { "a", "b" };
@@ -35,7 +35,7 @@ namespace CircularStack
             Assert.AreSame(items[1], obj.Peek());
         }
 
-        [TestMethod]
+        [Test]
         public void CircularStack_Should_BeInitializedWithCollectionAndCapacity()
         {
             var items = new List<string> { "a", "b" };
@@ -47,7 +47,7 @@ namespace CircularStack
             Assert.AreSame(items[1], obj.Peek());
         }
 
-        [TestMethod]
+        [Test]
         public void Count_Should_ReturnItemCount()
         {
             var arr = new List<string> { "a", "b" };
@@ -56,7 +56,7 @@ namespace CircularStack
             Assert.AreEqual(2, obj.Count);
         }
 
-        [TestMethod]
+        [Test]
         public void Count_Should_ReturnZero_When_StackIsEmpty()
         {
             var obj = new CircularStack();
@@ -64,7 +64,7 @@ namespace CircularStack
             Assert.AreEqual(0, obj.Count);
         }
 
-        [TestMethod]
+        [Test]
         public void IsFull_Should_ReturnTrue_WhenStackIsFull()
         {
             var arr = new List<string> { "a", "b" };
@@ -73,7 +73,7 @@ namespace CircularStack
             Assert.IsTrue(obj.IsFull);
         }
 
-        [TestMethod]
+        [Test]
         public void Push_Should_AddItem_WhenStackIsEmpty()
         {
             var obj = new CircularStack();
@@ -83,7 +83,7 @@ namespace CircularStack
             Assert.AreEqual(1, obj.Count);
         }
 
-        [TestMethod]
+        [Test]
         public void Push_Should_AddItem()
         {
             var arr = new List<string> { "a", "b" };
@@ -94,7 +94,7 @@ namespace CircularStack
             Assert.AreEqual(3, obj.Count);
         }
         
-        [TestMethod]
+        [Test]
         public void Push_Should_AddItem_When_ThereIsOnlyOneSpaceLeft()
         {
             var obj = new CircularStack(2);
@@ -105,7 +105,7 @@ namespace CircularStack
             Assert.AreEqual(2, obj.Count);
         }
 
-        [TestMethod]
+        [Test]
         public void Push_Should_DropLastItem_When_StackIsFull()
         {
             var expected = "b";
@@ -120,7 +120,7 @@ namespace CircularStack
             Assert.AreSame(expected, actual);
         }
 
-        [TestMethod]
+        [Test]
         public void Peek_Should_ReturnLastItem()
         {
             var expected = "b";
@@ -132,7 +132,7 @@ namespace CircularStack
             Assert.AreSame(expected, actual);
         }
 
-        [TestMethod]
+        [Test]
         public void Peek_ShouldNot_RemoveItem()
         {
             var arr = new List<string> { "a", "b" };
@@ -143,7 +143,7 @@ namespace CircularStack
             Assert.AreEqual(2, obj.Count);
         }
 
-        [TestMethod]
+        [Test]
         public void Pop_Should_ReturnItem()
         {
             var expected = "b";
@@ -155,7 +155,7 @@ namespace CircularStack
             Assert.AreSame(expected, actual);
         }
 
-        [TestMethod]
+        [Test]
         public void Pop_Should_ReturnItem_When_ThereIsOnlyOne()
         {
             var expected = "a";
@@ -167,7 +167,7 @@ namespace CircularStack
             Assert.AreSame(expected, actual);
         }
 
-        [TestMethod]
+        [Test]
         public void Pop_Should_RemoveItem()
         {
             var arr = new List<string> { "a", "b" };
@@ -178,7 +178,7 @@ namespace CircularStack
             Assert.AreEqual(1, obj.Count);
         }
 
-        [TestMethod]
+        [Test]
         public void Pop_Should_RemoveItem_When_ThereIsOnlyOne()
         {
             var arr = new List<string> { "a" };
@@ -189,7 +189,7 @@ namespace CircularStack
             Assert.AreEqual(0, obj.Count);
         }
 
-        [TestMethod]
+        [Test]
         public void Pop_Should_RespectCapacity()
         {
             var arr = new List<object> { new { } };
@@ -197,10 +197,10 @@ namespace CircularStack
 
             obj.Pop();
 
-            Assert.ThrowsException<InvalidOperationException>(() => obj.Pop());
+            Assert.Throws<InvalidOperationException>(() => obj.Pop());
         }
 
-        [TestMethod]
+        [Test]
         public void Push_ShouldNot_ChangeCapacity()
         {
             var obj = new CircularStack();
@@ -210,7 +210,7 @@ namespace CircularStack
             Assert.AreEqual(CircularStack.DefaultCapacity, obj.Capacity);
         }
 
-        [TestMethod]
+        [Test]
         public void Pop_ShouldNot_ChangeCapacity()
         {
             var arr = new List<object> { new { }, new { } };
@@ -221,7 +221,7 @@ namespace CircularStack
             Assert.AreEqual(2, obj.Capacity);
         }
 
-        [TestMethod]
+        [Test]
         public void Push_Should_WorkAfterPop()
         {
             var expected = "c";
@@ -234,7 +234,7 @@ namespace CircularStack
             Assert.AreSame(expected, obj.Peek());
         }
 
-        [TestMethod]
+        [Test]
         public void Pop_Should_WorkAfterPush()
         {
             var expected = "a";
@@ -246,7 +246,7 @@ namespace CircularStack
             Assert.AreSame(expected, actual);
         }
 
-        [TestMethod]
+        [Test]
         public void Clone_Should_Work()
         {
             //Create stack with capacity 4 and 2 items
