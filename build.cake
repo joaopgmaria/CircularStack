@@ -157,12 +157,18 @@ Task("Build")
 Task("Test")
 	.Does(() =>
 	{
-		// NUnit3($"./src/*/bin/{configuration}/*.Tests.dll", new NUnit3Settings
-		// {
-		// 	Configuration = configuration,
-		// 	TeamCity = runningOnBuildServer
-		// });
-		Information("Bypassing test execution");
+		var settings = new DotNetCoreTestSettings
+        {
+            Configuration = configuration,
+            Verbosity = MapVerbosityToDotNetCoreVerbosity(verbosity),
+            NoRestore = true,
+            NoBuild = true,
+            Logger = "trx"
+        };
+
+        DotNetCoreTest("./tests", settings);
+
+
 	});
 
 Task("Package")
@@ -207,6 +213,9 @@ Task("Upload-Artifacts")
 	{
         foreach (var file in GetFiles(outputDir + "/*"))
         	AppVeyor.UploadArtifact(file.FullPath);
+
+        foreach (var file in GetFiles("./tests/TestResults/*"))
+        	AppVeyor.UploadTestResults(file.FullPath, AppVeyorTestResultsType.NUnit3);
 	});
 
 //////////////////////////////////////////////////////////////////////
