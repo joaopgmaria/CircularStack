@@ -206,6 +206,14 @@ Task("Generate-Release-Notes")
 		} 
 	});
 
+Task("Upload-Artifacts")
+	.WithCriteria(AppVeyor.IsRunningOnAppVeyor)
+	.Does(() =>
+	{
+        foreach (var file in GetFiles(outputDir + "/*"))
+        	AppVeyor.UploadArtifact(file.FullPath);
+	});
+
 //////////////////////////////////////////////////////////////////////
 // TASK TARGETS
 //////////////////////////////////////////////////////////////////////
@@ -228,6 +236,7 @@ Task("FullBuild")
 	.IsDependentOn("Test")
 	.IsDependentOn("Package")
 	.IsDependentOn("Generate-Release-Notes")
+	.IsDependentOn("UploadArtifacts")
 	.OnError(exception =>
 	{
 		PrintUsage();
