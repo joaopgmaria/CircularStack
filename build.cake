@@ -164,6 +164,14 @@ Task("Pack-NuGet-Packages")
             ReplaceTextInFiles(file.ToString(), "<VersionPrefix>1.0.0.0</VersionPrefix>", $"<VersionPrefix>{nugetVersion}</VersionPrefix>");
             DotNetCorePack(file.ToString(), settings);
         }
+
+		if (AppVeyor.IsRunningOnAppVeyor)
+        {
+            foreach (var file in GetFiles(nugetOutputPath))
+                AppVeyor.UploadArtifact(file.FullPath);
+
+			AppVeyor.UpdateBuildVersion(nugetVersion);
+        }
 	});
 
 Task("Get-GitVersion")
@@ -172,7 +180,8 @@ Task("Get-GitVersion")
 			{
 				UpdateAssemblyInfo = false,
 				NoFetch = true,
-				WorkingDirectory = "./"
+				WorkingDirectory = "./",
+            	OutputType = GitVersionOutput.BuildServer
 			});
 
 			Information($"AssemblySemVer: {gitVersion.AssemblySemVer}{Environment.NewLine}"+
