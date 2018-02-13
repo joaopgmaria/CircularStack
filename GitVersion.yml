@@ -5,8 +5,10 @@ assembly-informational-format: '{AssemblySemVer}'
 branches:
     master:
         tag: 'unstable'
+        increment: None
     releases?[/-]:
         mode: ContinuousDelivery
+        increment: None
         tag: ''
 ignore:
     sha: []
