@@ -30,7 +30,7 @@ namespace CircularStack
 
     public class CircularStack<T> : ICollection, IEnumerable, ICloneable
     {
-        public static int DefaultCapacity => 10;
+        public const int DefaultCapacity = 10;
 
         private T[] _space;
         private int _last = -1;
@@ -46,13 +46,11 @@ namespace CircularStack
         public CircularStack()
         {
             _space = new T[DefaultCapacity];
-            _last = -1;
         }
 
         public CircularStack(int capacity)
         {
             _space = new T[capacity];
-            _last = -1;
         }
 
         public CircularStack(IEnumerable<T> items)

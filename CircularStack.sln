@@ -3,9 +3,18 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.2010
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CircularStack", "src\CircularStack.csproj", "{2CFF2597-A555-47E4-9A2F-38E9BB535AB2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CircularStack", "src\CircularStack.csproj", "{2CFF2597-A555-47E4-9A2F-38E9BB535AB2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CircularStackTests", "tests\CircularStackTests.csproj", "{6259D2E4-700E-4C5F-864E-410B8BA4E407}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CircularStackTests", "tests\CircularStackTests.csproj", "{6259D2E4-700E-4C5F-864E-410B8BA4E407}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{0F4DDFFE-D44D-46FF-AF07-EA9E8AB477F7}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+		build.cake = build.cake
+		build.ps1 = build.ps1
+		GitVersion.yml = GitVersion.yml
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
