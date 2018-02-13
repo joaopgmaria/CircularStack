@@ -104,10 +104,11 @@ Task("Restore")
 
 Task("Version")
 	.Does(() => {
-		gitVersion = GitVersion(new GitVersionSettings
-		{
-			UpdateAssemblyInfo = false
-		});
+		GitVersion(new GitVersionSettings{
+            UpdateAssemblyInfo = true,
+            OutputType = GitVersionOutput.BuildServer
+        });
+        gitVersion = GitVersion(new GitVersionSettings{ OutputType = GitVersionOutput.Json });
 
 		Information($"AssemblySemVer: {gitVersion.AssemblySemVer}{Environment.NewLine}"+
 						$"SemVer: {gitVersion.AssemblySemVer}{Environment.NewLine}" +
@@ -184,12 +185,6 @@ Task("Package")
 		foreach(var file in projectFiles)
 		{
 			DotNetCorePack(file.ToString(), settings);
-		}
-
-		if (AppVeyor.IsRunningOnAppVeyor)
-		{
-			foreach (var file in GetFiles(outputDir))
-				AppVeyor.UploadArtifact(file.FullPath);
 		}
 	});
 
