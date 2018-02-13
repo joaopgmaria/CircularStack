@@ -106,8 +106,7 @@ Task("Version")
 	.Does(() => {
 		gitVersion = GitVersion(new GitVersionSettings
 		{
-			UpdateAssemblyInfo = false,
-			OutputType = BuildSystem.IsLocalBuild ? GitVersionOutput.Json : GitVersionOutput.BuildServer
+			UpdateAssemblyInfo = false
 		});
 
 		Information($"AssemblySemVer: {gitVersion.AssemblySemVer}{Environment.NewLine}"+
