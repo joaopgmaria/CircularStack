@@ -9,4 +9,4 @@ branches:
         mode: ContinuousDelivery
         tag: ''
 ignore:
-sha: []
+    sha: []
