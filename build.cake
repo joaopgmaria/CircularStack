@@ -236,7 +236,7 @@ Task("FullBuild")
 	.IsDependentOn("Test")
 	.IsDependentOn("Package")
 	.IsDependentOn("Generate-Release-Notes")
-	.IsDependentOn("UploadArtifacts")
+	.IsDependentOn("Upload-Artifacts")
 	.OnError(exception =>
 	{
 		PrintUsage();
