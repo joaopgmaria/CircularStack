@@ -1,4 +1,4 @@
-#tool "nuget:?package=GitReleaseNotes"
+#tool "nuget:?package=GitReleaseNotes";
 #tool "nuget:?package=GitVersion.CommandLine";
 #tool "nuget:?package=NUnit.ConsoleRunner";
 #addin "nuget:?package=Cake.FileHelpers";
