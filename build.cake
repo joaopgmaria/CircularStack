@@ -105,12 +105,15 @@ Task("Restore")
 
 Task("Build")
     .IsDependentOn("Restore")
+	.IsDependentOn("Get-GitVersion")
 	.Does(() =>
 	{
         var settings = new DotNetCoreBuildSettings
         {
             Configuration = configuration,
-            Verbosity = MapVerbosityToDotNetCoreVerbosity(verbosity)
+            Verbosity = MapVerbosityToDotNetCoreVerbosity(verbosity),
+			NoRestore = true,
+			VersionSuffix = assemblyVersion
         };
 
 		DotNetCoreBuild(solution,settings);
@@ -158,19 +161,12 @@ Task("Pack-NuGet-Packages")
 
 		EnsureDirectoryExists(Directory(nugetOutputPath).Path);
 
-        var projectFiles = GetFiles("./src/*.csproj");
-        foreach(var file in projectFiles)
-        {
-            ReplaceTextInFiles(file.ToString(), "<VersionPrefix>1.0.0.0</VersionPrefix>", $"<VersionPrefix>{nugetVersion}</VersionPrefix>");
-            DotNetCorePack(file.ToString(), settings);
-        }
-
 		if (AppVeyor.IsRunningOnAppVeyor)
         {
             foreach (var file in GetFiles(nugetOutputPath))
                 AppVeyor.UploadArtifact(file.FullPath);
 
-			AppVeyor.UpdateBuildVersion(nugetVersion);
+			AppVeyor.UpdateBuildVersion(assemblyVersion);
         }
 	});
 
@@ -178,10 +174,7 @@ Task("Get-GitVersion")
 		.Does(() => {
 			gitVersion = GitVersion(new GitVersionSettings
 			{
-				UpdateAssemblyInfo = false,
-				NoFetch = true,
-				WorkingDirectory = "./",
-            	OutputType = GitVersionOutput.BuildServer
+				UpdateAssemblyInfo = true
 			});
 
 			Information($"AssemblySemVer: {gitVersion.AssemblySemVer}{Environment.NewLine}"+
