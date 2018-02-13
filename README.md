@@ -28,6 +28,7 @@ var stack = new CircularStack<MyType>(200);
 
 //Initialized with a collection specified
 //Items will be pushed in the order they are found so Peek() will yield "b"
+//Stack capacity will be the same as the number of items
 var items = new List<string> { "a", "b" };    
 var stack = new CircularStack<string>(items);
 
