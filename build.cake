@@ -139,15 +139,21 @@ Task("Pack-NuGet-Packages")
 		if(string.IsNullOrWhiteSpace(gitVersion.PreReleaseTagWithDash) && gitVersion.BranchName != "master")
 		{
 			Information("No Pre-Release tag found. Versioning as a Release...");
-			nugetVersion = $"{gitVersion.MajorMinorPatch}.{gitVersion.PreReleaseNumber}";
 		}
 		else
 		{
-			Information($"Pre-Release tag '{gitVersion.PreReleaseLabel}' found. Versioning as a Pre-Release...");
-			nugetVersion = gitVersion.NuGetVersionV2;
+			if(gitVersion.BranchName != "master")
+			{
+				Information($"Pre-Release tag '{gitVersion.PreReleaseLabel}' found. Versioning as a Pre-Release...");
+			}
+			else
+			{
+				Information($"Building from master. Versioning as unstable...");
+				gitVersion.NuGetVersionV2 += "-unstable"; 
+			}
 		}
 
-        Information($"Using version {nugetVersion} for nuget packages");
+        Information($"Using version {gitVersion.NuGetVersionV2} for nuget packages");
 
 		var settings = new DotNetCorePackSettings
 		{
@@ -162,7 +168,16 @@ Task("Pack-NuGet-Packages")
 		var projectFiles = GetFiles("./src/*.csproj");
 		foreach(var file in projectFiles)
 		{
-			DotNetCorePack(file.ToString(), settings);
+			if (!BuildSystem.IsLocalBuild)
+        	{
+				ReplaceTextInFiles(file.ToString(), "<VersionPrefix>1.0.0.0</VersionPrefix>", $"<VersionPrefix>{gitVersion.NuGetVersionV2}</VersionPrefix>");
+			}
+			else
+			{
+				settings.VersionSuffix = "local";
+			}
+
+            DotNetCorePack(file.ToString(), settings);
 		}
 
 		if (AppVeyor.IsRunningOnAppVeyor)
