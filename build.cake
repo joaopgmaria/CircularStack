@@ -7,7 +7,7 @@ public void PrintUsage()
 {
 	Console.WriteLine($"Usage: build.cake [options]{Environment.NewLine}" +
 								$"Options:{Environment.NewLine}" +
-								$"\t-target\t\t\t\tCake build entry point.\tDefaults to 'LocalBuild'.{Environment.NewLine}" +
+								$"\t-target\t\t\t\tCake build entry point.\tDefaults to 'BuildOnCommit'.{Environment.NewLine}" +
 								$"\t-configuration\t\t\tBuild configuration [Debug|Release]. Defaults to 'Release'.{Environment.NewLine}" +
 								$"\t-verbosity\t\t\tVerbosity [Quiet|Minimal|Normal|Verbose|Diagnostic]. Defaults to 'Minimal'.{Environment.NewLine}" +
 								$"\t-branch\t\tThe branch being built. Required{Environment.NewLine}");
