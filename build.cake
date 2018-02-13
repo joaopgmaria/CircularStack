@@ -214,7 +214,7 @@ Task("Upload-Artifacts")
         foreach (var file in GetFiles(outputDir + "/*"))
         	AppVeyor.UploadArtifact(file.FullPath);
 
-        foreach (var file in GetFiles("./tests/TestResults/*.trx"))
+        foreach (var file in GetFiles("./tests/TestResults/*"))
         	AppVeyor.UploadTestResults(file.FullPath, AppVeyorTestResultsType.NUnit3);
 	});
 
