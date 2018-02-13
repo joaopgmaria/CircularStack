@@ -139,11 +139,6 @@ Task("Version")
 			ReplaceTextInFiles(file.ToString(), "<VersionPrefix>1.0.0</VersionPrefix>", $"<VersionPrefix>{gitVersion.NuGetVersionV2}</VersionPrefix>");
 			ReplaceTextInFiles(file.ToString(), "<VersionSuffix>local</VersionSuffix>", "");
 		}
-
-		if (AppVeyor.IsRunningOnAppVeyor)
-        {
-            AppVeyor.UpdateBuildVersion(gitVersion.FullSemVer);
-        }
 	});			
 
 Task("Build")

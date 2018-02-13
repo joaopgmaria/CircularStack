@@ -4,11 +4,9 @@ tag-prefix: '[Rr]eleases?[/-]'
 assembly-informational-format: '{AssemblySemVer}'
 branches:
     master:
-        increment: None
-        tag: unstable
+        tag: 'unstable'
     releases?[/-]:
         mode: ContinuousDelivery
-        increment: None
-        tag: rc
+        tag: ''
 ignore:
-  sha: []
+sha: []
