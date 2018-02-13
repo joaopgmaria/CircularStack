@@ -147,8 +147,6 @@ Task("Pack-NuGet-Packages")
 			nugetVersion = gitVersion.NuGetVersionV2;
 		}
 
-		assemblyVersion = gitVersion.AssemblySemVer;
-
         Information($"Using version {nugetVersion} for nuget packages");
 
 		var settings = new DotNetCorePackSettings
@@ -161,12 +159,18 @@ Task("Pack-NuGet-Packages")
 
 		EnsureDirectoryExists(Directory(nugetOutputPath).Path);
 
+		var projectFiles = GetFiles("./src/*.csproj");
+		foreach(var file in projectFiles)
+		{
+			DotNetCorePack(file.ToString(), settings);
+		}
+
 		if (AppVeyor.IsRunningOnAppVeyor)
         {
             foreach (var file in GetFiles(nugetOutputPath))
                 AppVeyor.UploadArtifact(file.FullPath);
 
-			AppVeyor.UpdateBuildVersion(assemblyVersion);
+			AppVeyor.UpdateBuildVersion(gitVersion.FullSemVer);
         }
 	});
 
