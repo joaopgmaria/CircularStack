@@ -5,7 +5,7 @@
 
     <IsPackable>false</IsPackable>
 
-    <RootNamespace>CircularStack</RootNamespace>
+    <RootNamespace>CircularStack.Tests</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
