@@ -8,6 +8,7 @@ public void PrintUsage()
 	Console.WriteLine($"Usage: build.cake [options]{Environment.NewLine}" +
 								$"Options:{Environment.NewLine}" +
 								$"\t-target\t\t\t\tCake build entry point.\tDefaults to 'BuildOnCommit'.{Environment.NewLine}" +
+								$"\t-framework\t\t\tFramework to target. Defaults to 'all' if not specified.{Environment.NewLine}" +
 								$"\t-configuration\t\t\tBuild configuration [Debug|Release]. Defaults to 'Release'.{Environment.NewLine}" +
 								$"\t-verbosity\t\t\tVerbosity [Quiet|Minimal|Normal|Verbose|Diagnostic]. Defaults to 'Minimal'.{Environment.NewLine}" +
 								$"\t-branch\t\tThe branch being built. Required{Environment.NewLine}");
@@ -58,6 +59,7 @@ private NuGetVerbosity MapVerbosityToNuGetVerbosity(Verbosity verbosity)
 //////////////////////////////////////////////////////////////////////
 
 var target = Argument("target", "BuildOnCommit");
+var framework = Argument("framework", "all");
 var configuration = Argument("configuration", "Release");
 var verbosity = ParseVerbosity(Argument("verbosity", "Minimal"));
 
@@ -151,6 +153,11 @@ Task("Build")
 			NoRestore = true
         };
 
+		if (!string.IsNullOrEmpty(framework))
+		{
+			settings.Framework = framework;
+		}
+
 		DotNetCoreBuild(solution,settings);
 	});
 
@@ -165,6 +172,11 @@ Task("Test")
             NoBuild = true,
             Logger = "trx"
         };
+
+		if (!string.IsNullOrEmpty(framework))
+		{
+			settings.Framework = framework;
+		}
 
         DotNetCoreTest("./tests", settings);
 	});
