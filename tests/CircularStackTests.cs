@@ -26,13 +26,13 @@ namespace CircularStack
         [Test]
         public void CircularStack_Should_BeInitializedWithCollection()
         {
-            var items = new List<string> { "a", "b" };
+            var items = new List<string> { "a", "b", "c" };
             
-            var obj = new CircularStack(items);
+            var obj = new CircularStack<string>(items);
 
-            Assert.AreEqual(2, obj.Count);
+            Assert.AreEqual(3, obj.Count);
             Assert.AreEqual(items.Count, obj.Capacity);
-            Assert.AreSame(items[1], obj.Peek());
+            obj.ShouldContainElementsReversed(items);
         }
 
         [Test]
@@ -40,11 +40,11 @@ namespace CircularStack
         {
             var items = new List<string> { "a", "b" };
 
-            var obj = new CircularStack(items, 4);
+            var obj = new CircularStack<string>(items, 4);
 
             Assert.AreEqual(2, obj.Count);
             Assert.AreEqual(4, obj.Capacity);
-            Assert.AreSame(items[1], obj.Peek());
+            obj.ShouldContainElementsReversed(items);
         }
 
         [Test]
@@ -81,28 +81,31 @@ namespace CircularStack
             obj.Push(1);
 
             Assert.AreEqual(1, obj.Count);
+            obj.ShouldContainElement(1);
         }
 
         [Test]
         public void Push_Should_AddItem()
         {
             var arr = new List<string> { "a", "b" };
-            var obj = new CircularStack(arr, 4);
+            var obj = new CircularStack<string>(arr, 4);
 
             obj.Push("c");
 
             Assert.AreEqual(3, obj.Count);
+            obj.ShouldContainElementsInOrder("c", "b", "a");
         }
         
         [Test]
         public void Push_Should_AddItem_When_ThereIsOnlyOneSpaceLeft()
         {
-            var obj = new CircularStack(2);
+            var obj = new CircularStack<int>(2);
 
             obj.Push(1);
             obj.Push(2);
 
             Assert.AreEqual(2, obj.Count);
+            obj.ShouldContainElementsInOrder(2, 1);
         }
 
         [Test]
@@ -110,14 +113,11 @@ namespace CircularStack
         {
             var expected = "b";
             var arr = new List<string> { "a", expected };
-            var obj = new CircularStack(arr);
+            var obj = new CircularStack<string>(arr);
             
             obj.Push("c");
 
-            obj.Pop(); //c
-            var actual = obj.Pop();
-
-            Assert.AreSame(expected, actual);
+            obj.ShouldContainElementsInOrder("c", "b");
         }
 
         [Test]
@@ -125,7 +125,7 @@ namespace CircularStack
         {
             var expected = "b";
             var arr = new List<string> { "a", "b" };
-            var obj = new CircularStack(arr);
+            var obj = new CircularStack<string>(arr);
 
             var actual = obj.Peek();
 
@@ -136,11 +136,12 @@ namespace CircularStack
         public void Peek_ShouldNot_RemoveItem()
         {
             var arr = new List<string> { "a", "b" };
-            var obj = new CircularStack(arr);
+            var obj = new CircularStack<string>(arr);
 
             obj.Peek();
 
             Assert.AreEqual(2, obj.Count);
+            obj.ShouldContainElementsReversed(arr);
         }
 
         [Test]
@@ -171,11 +172,12 @@ namespace CircularStack
         public void Pop_Should_RemoveItem()
         {
             var arr = new List<string> { "a", "b" };
-            var obj = new CircularStack(arr);
+            var obj = new CircularStack<string>(arr);
 
             obj.Pop();
 
             Assert.AreEqual(1, obj.Count);
+            obj.ShouldContainElementsInOrder("a");
         }
 
         [Test]
@@ -225,41 +227,168 @@ namespace CircularStack
         public void Push_Should_WorkAfterPop()
         {
             var expected = "c";
-            var arr = new List<string> { "a", "b" };
-            var obj = new CircularStack(arr);
+            var arr = new List<string> { "a", "b", "d" };
+            var obj = new CircularStack<string>(arr);
 
             obj.Pop();
             obj.Push(expected);
 
             Assert.AreSame(expected, obj.Peek());
+            obj.ShouldContainElementsInOrder("c", "b", "a");
         }
 
         [Test]
         public void Pop_Should_WorkAfterPush()
         {
-            var expected = "a";
-            var obj = new CircularStack();
-            
+            var expected = "k";
+            var arr = new List<string> { "a", "b", "d" };
+            var obj = new CircularStack<string>(arr);
+
             obj.Push(expected);
             var actual = obj.Pop();
 
             Assert.AreSame(expected, actual);
+            obj.ShouldContainElementsInOrder("d", "b");
         }
 
         [Test]
         public void Clone_Should_Work()
         {
-            //Create stack with capacity 4 and 2 items
-            var arr = new List<string> { "a", "b" };
-            var obj = new CircularStack(arr, 4);
+            var arr = new List<string> { "a", "b", "c", "d" };
+            var obj = new CircularStack<string>(arr, 6);
 
-            var actual = obj.Clone() as CircularStack<object>;
+            var actual = obj.Clone() as CircularStack<string>;
 
             Assert.AreEqual(obj.Capacity, actual.Capacity);
             Assert.AreEqual(obj.Count, actual.Count);
             Assert.AreEqual(obj.IsEmpty, actual.IsEmpty);
             Assert.AreEqual(obj.IsFull, actual.IsFull);
             Assert.AreEqual(obj.IsSynchronized, actual.IsSynchronized);
+            obj.ShouldContainElementsReversed(arr);
         }
+
+        [Test]
+        public void Clone_ShouldNot_ContainOriginalItems()
+        {
+            var mutableObject = "a";
+            var arr = new List<string> { mutableObject, "b", "c" };
+            var obj = new CircularStack<string>(arr);
+
+            var actual = obj.Clone() as CircularStack<string>;
+
+            obj.Pop();
+            obj.Push("k");
+            mutableObject = "changed";
+            
+            obj.ShouldContainElementsInOrder("k", "b", "a");
+        }
+
+        [Test]
+        public void Pop_Should_Work_When_StackIsInitializedFromCollection()
+        {
+            var arr = new List<string> { "a", "b", "c", "d" };
+            var obj = new CircularStack(arr);
+
+            Assert.AreEqual("d", obj.Pop());
+            Assert.AreEqual("c", obj.Pop());
+            Assert.AreEqual("b", obj.Pop());
+            Assert.AreEqual("a", obj.Pop());
+        }
+
+        [Test]
+        public void Pop_Should_Work_When_ItemDropped()
+        {
+            var obj = new CircularStack(2);
+
+            obj.Push("a");
+            obj.Push("b");
+            obj.Push("c");
+
+            Assert.AreEqual("c", obj.Pop());
+            Assert.AreEqual("b", obj.Pop());
+            Assert.Throws<InvalidOperationException>(() => obj.Pop());
+        }
+
+        [Test]
+        public void Pop_Should_Work_When_ItemDroppedAndInitializedFromCollectionAndCapacity()
+        {
+            var items = new List<string> { "a", "b", "c" };
+            var obj = new CircularStack<string>(items, 4);
+ 
+            obj.Push("d");
+            obj.Push("e");
+            obj.Push("f");
+
+            Assert.AreEqual("f", obj.Pop());
+            Assert.AreEqual("e", obj.Pop());
+            Assert.AreEqual("d", obj.Pop());
+            Assert.AreEqual("c", obj.Pop());
+            Assert.Throws<InvalidOperationException>(() => obj.Pop());
+        }
+
+        [Test]
+        public void Push_Should_Work_When_StackIsInitializedFromCollection()
+        {
+            var arr = new List<string> { "a", "b", "c" };
+            var obj = new CircularStack<string>(arr, 5);
+
+            var expected = "d";
+
+            obj.Push(expected);
+            obj.ShouldContainElementsInOrder("d", "c", "b", "a");
+        }
+    }
+
+    public static class AssertExtensions
+    {
+        public static void ShouldContainElementsInOrder<T>(this CircularStack<T> stack, params T[] elements)
+        {
+            Assert.AreEqual(elements.Length, stack.Count);
+
+            int idx = 0;
+            foreach(var item in stack)
+            {
+                if (item != null)
+                {
+
+                    Assert.AreEqual(elements[idx], item);
+                    idx++;
+                }
+            }
+        }
+
+        public static void ShouldContainElementsInOrder<T>(this CircularStack<T> stack, List<T> elements) => ShouldContainElementsInOrder(stack, elements.ToArray());
+
+        public static void ShouldContainElement<T>(this CircularStack<T> stack, T element)
+        {
+            bool found = false;
+            foreach(var item in stack)
+            {
+                if (item.Equals(element))
+                {
+                    found = true;
+                    break;
+                }
+            }
+
+            Assert.IsTrue(found);
+        }
+
+        public static void ShouldContainElementsReversed<T>(this CircularStack<T> stack, params T[] elements)
+        {
+            Assert.AreEqual(elements.Length, stack.Count);
+
+            int idx = stack.Count - 1;
+            foreach(var item in stack)
+            {
+                if (item != null)
+                {
+                    Assert.AreEqual(elements[idx], item);
+                    idx--;
+                }
+            }
+        }
+
+        public static void ShouldContainElementsReversed<T>(this CircularStack<T> stack, List<T> elements) => ShouldContainElementsReversed(stack, elements.ToArray());
     }
 }

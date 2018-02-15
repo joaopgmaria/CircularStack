@@ -22,10 +22,6 @@ namespace CircularStack
         public CircularStack(IEnumerable<object> items, int capacity) : base(items, capacity)
         {
         }
-
-        public CircularStack(IEnumerable<object> items, int capacity, int last) : base(items, capacity, last)
-        {
-        }
     }
 
     public class CircularStack<T> : ICollection, IEnumerable, ICloneable
@@ -61,8 +57,6 @@ namespace CircularStack
 
             items.ToList()
                  .ForEach(i => Push(i));
-
-            _last = count - 1;
         }
 
         public CircularStack(IEnumerable<T> items, int capacity)
@@ -73,13 +67,6 @@ namespace CircularStack
 
             items.ToList()
                  .ForEach(i => Push(i));
-
-            _last = count - 1;
-        }
-
-        public CircularStack(IEnumerable<T> items, int capacity, int last) : this(items, capacity)
-        {
-            _last = last;
         }
 
         /// <summary>  
@@ -103,11 +90,6 @@ namespace CircularStack
                 _space[0] = item;
                 _last++;
             }
-            else
-            {
-                throw new InvalidOperationException("Stack is Full");
-            }
-
         }
 
         /// <summary>  
@@ -123,7 +105,7 @@ namespace CircularStack
 
             var popedItem = _space[0];
 
-            for (int i = _last; i > 0; i--)
+            for (int i = 1; i < Count; i++)
             {
                 _space[i - 1] = _space[i];
             }
@@ -161,9 +143,7 @@ namespace CircularStack
 
         public object Clone()
         {
-            var items = _space.ToList();
-
-            return new CircularStack<T>(items, Capacity, _last);
+            return this.MemberwiseClone();
         }
     }
 }
