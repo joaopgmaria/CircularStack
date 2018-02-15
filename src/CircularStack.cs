@@ -61,6 +61,8 @@ namespace CircularStack
 
             items.ToList()
                  .ForEach(i => Push(i));
+
+            _last = count - 1;
         }
 
         public CircularStack(IEnumerable<T> items, int capacity)
@@ -71,6 +73,8 @@ namespace CircularStack
 
             items.ToList()
                  .ForEach(i => Push(i));
+
+            _last = count - 1;
         }
 
         public CircularStack(IEnumerable<T> items, int capacity, int last) : this(items, capacity)
@@ -99,6 +103,11 @@ namespace CircularStack
                 _space[0] = item;
                 _last++;
             }
+            else
+            {
+                throw new InvalidOperationException("Stack is Full");
+            }
+
         }
 
         /// <summary>  
@@ -114,7 +123,7 @@ namespace CircularStack
 
             var popedItem = _space[0];
 
-            for (int i = 1; i < Count; i++)
+            for (int i = _last; i > 0; i--)
             {
                 _space[i - 1] = _space[i];
             }
