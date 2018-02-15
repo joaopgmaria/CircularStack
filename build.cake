@@ -54,6 +54,8 @@ private NuGetVerbosity MapVerbosityToNuGetVerbosity(Verbosity verbosity)
 	}
 }
 
+private bool IsFrameworkSpecified => !string.IsNullOrEmpty(framework) && framework != "all";
+
 //////////////////////////////////////////////////////////////////////
 // ARGUMENTS
 //////////////////////////////////////////////////////////////////////
@@ -153,7 +155,7 @@ Task("Build")
 			NoRestore = true
         };
 
-		if (!string.IsNullOrEmpty(framework))
+		if (IsFrameworkSpecified)
 		{
 			settings.Framework = framework;
 		}
@@ -173,7 +175,7 @@ Task("Test")
             Logger = "trx"
         };
 
-		if (!string.IsNullOrEmpty(framework))
+		if (IsFrameworkSpecified)
 		{
 			settings.Framework = framework;
 		}
