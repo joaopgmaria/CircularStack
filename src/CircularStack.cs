@@ -24,7 +24,7 @@ namespace CircularStack
         }
     }
 
-    public class CircularStack<T> : ICollection, IEnumerable, ICloneable
+    public class CircularStack<T> : ICollection, IEnumerable
     {
         public const int DefaultCapacity = 10;
 
@@ -139,11 +139,6 @@ namespace CircularStack
                 array.SetValue(i, index);
                 index = index + 1;
             }
-        }
-
-        public object Clone()
-        {
-            return this.MemberwiseClone();
         }
     }
 }

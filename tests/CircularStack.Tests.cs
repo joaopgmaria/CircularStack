@@ -252,38 +252,6 @@ namespace CircularStack.Tests
         }
 
         [Test]
-        public void Clone_Should_Work()
-        {
-            var arr = new List<string> { "a", "b", "c", "d" };
-            var obj = new CircularStack<string>(arr, 6);
-
-            var actual = obj.Clone() as CircularStack<string>;
-
-            Assert.AreEqual(obj.Capacity, actual.Capacity);
-            Assert.AreEqual(obj.Count, actual.Count);
-            Assert.AreEqual(obj.IsEmpty, actual.IsEmpty);
-            Assert.AreEqual(obj.IsFull, actual.IsFull);
-            Assert.AreEqual(obj.IsSynchronized, actual.IsSynchronized);
-            obj.ShouldContainElementsReversed(arr);
-        }
-
-        [Test]
-        public void Clone_ShouldNot_ContainOriginalItems()
-        {
-            var mutableObject = "a";
-            var arr = new List<string> { mutableObject, "b", "c" };
-            var obj = new CircularStack<string>(arr);
-
-            var actual = obj.Clone() as CircularStack<string>;
-
-            obj.Pop();
-            obj.Push("k");
-            mutableObject = "changed";
-            
-            obj.ShouldContainElementsInOrder("k", "b", "a");
-        }
-
-        [Test]
         public void Pop_Should_Work_When_StackIsInitializedFromCollection()
         {
             var arr = new List<string> { "a", "b", "c", "d" };

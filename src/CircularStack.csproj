@@ -1,10 +1,21 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;net46</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;netstandard1.6;netcoreapp2.0;net46;net461</TargetFrameworks>
     <RootNamespace>CircularStack</RootNamespace>
     <VersionPrefix>1.0.0</VersionPrefix>
     <VersionSuffix>local</VersionSuffix>
   </PropertyGroup>
+
+  <PropertyGroup>
+    <PackageId>CircularStack</PackageId>
+    <Title>CircularStack</Title>
+    <Summary>A simple stack (LIFO) that rotates items based on its fixed capacity.</Summary>
+    <Description>A simple stack (LIFO) that rotates items based on its fixed capacity.</Description>
+    <Authors>joaopgmaria</Authors>
+    <Owners>joaopgmaria</Owners>
+    <PackageProjectUrl>https://github.com/joaopgmaria/CircularStack</PackageProjectUrl>
+    <PackageLicenseUrl>https://github.com/joaopgmaria/CircularStack/blob/master/LICENSE</PackageLicenseUrl>
+</PropertyGroup>
 
 </Project>
