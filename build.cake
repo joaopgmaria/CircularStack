@@ -1,7 +1,7 @@
-#tool "nuget:?package=GitReleaseNotes";
-#tool "nuget:?package=GitVersion.CommandLine";
-#tool "nuget:?package=NUnit.ConsoleRunner";
-#addin "nuget:?package=Cake.FileHelpers";
+#tool "GitReleaseNotes";
+#tool "GitVersion.CommandLine";
+#tool "NUnit.ConsoleRunner";
+#addin "Cake.FileHelpers"
 
 public void PrintUsage()
 {
