@@ -7,7 +7,7 @@ namespace CircularStack
 {
     public class CircularStack : CircularStack<object>
     {
-        public CircularStack() : base()
+        public CircularStack()
         {
         }
 
@@ -24,13 +24,13 @@ namespace CircularStack
         }
     }
 
-    public class CircularStack<T> : ICollection, IEnumerable
+    public class CircularStack<T> : ICollection
     {
         public const int DefaultCapacity = 10;
 
-        private T[] _space;
+        private readonly T[] _space;
         private int _last = -1;
-        private object _syncRoot = new object();
+        private readonly object _syncRoot = new object();
 
         public int Capacity => _space.Length;
         public int Count => _last + 1;
@@ -56,17 +56,15 @@ namespace CircularStack
             _space = new T[count];
 
             items.ToList()
-                 .ForEach(i => Push(i));
+                 .ForEach(Push);
         }
 
         public CircularStack(IEnumerable<T> items, int capacity)
         {
-            int count = items.Count();
-
             _space = new T[capacity];
 
             items.ToList()
-                 .ForEach(i => Push(i));
+                 .ForEach(Push);
         }
 
         /// <summary>  

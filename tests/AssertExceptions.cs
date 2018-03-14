@@ -1,10 +1,9 @@
 ﻿using NUnit.Framework;
 using System.Collections.Generic;
-using CircularStack;
 
 namespace CircularStack.Tests
 {
-    public static class AssertExtensions
+    internal static class AssertExtensions
     {
         public static void ShouldContainElementsInOrder<T>(this CircularStack<T> stack, params T[] elements)
         {

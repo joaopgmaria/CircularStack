@@ -6,19 +6,12 @@ namespace CircularStack.Sample
     {
         public static string GetState(this CircularStack stack)
         {
-            string str = "";
-            foreach (var item in stack)
-            {
-                str += item?.ToString() + ",";
-            }
-
-            str = str.Trim(',');
-            return str;
+            return String.Join(",", stack);
         }
 
         public static void Dump(this object obj)
         {
-            Console.WriteLine(obj.ToString());
+            Console.WriteLine(obj);
         }
     }
 }

@@ -59,9 +59,7 @@ namespace CircularStack.Tests
         [Test]
         public void Count_Should_ReturnZero_When_StackIsEmpty()
         {
-            var obj = new CircularStack();
-
-            Assert.AreEqual(0, obj.Count);
+            Assert.AreEqual(0, (new CircularStack()).Count);
         }
 
         [Test]

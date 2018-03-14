@@ -16,6 +16,5 @@
     <Owners>joaopgmaria</Owners>
     <PackageProjectUrl>https://github.com/joaopgmaria/CircularStack</PackageProjectUrl>
     <PackageLicenseUrl>https://github.com/joaopgmaria/CircularStack/blob/master/LICENSE</PackageLicenseUrl>
-</PropertyGroup>
-
+  </PropertyGroup>
 </Project>
