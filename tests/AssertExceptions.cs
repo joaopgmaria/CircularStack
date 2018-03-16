@@ -14,7 +14,6 @@ namespace CircularStack.Tests
             {
                 if (item != null)
                 {
-
                     Assert.AreEqual(elements[idx], item);
                     idx++;
                 }
